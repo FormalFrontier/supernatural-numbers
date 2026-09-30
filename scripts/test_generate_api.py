@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Data-only corruption tests for the bounded native Markdown adapter.
 
-Adapted by worker-b from polynomial-root-stability tests at
-d31add515b6fd4a55612241a5b0f470c129cc467, later corrected for
-source-only reproduction at f7ef00335857f1a22e0a241a57398b98f40f180a.
+Adapted from the Formal Frontier Root Stability tests, with Beacon's
+source-only reproduction correction and Anchor's Ideal Completion recipe.
 Synthetic rows reconstructed from checked-in catalogue metadata are not native
 provenance; actual eight raw native records must be verified separately.
 """

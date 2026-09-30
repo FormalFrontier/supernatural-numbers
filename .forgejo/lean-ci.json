@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "mode": "strict",
+  "projects": [
+    {
+      "path": ".",
+      "targets": [
+        "SupernaturalNumbers",
+        "SupernaturalNumbersTests"
+      ]
+    }
+  ],
+  "docs_only_paths": []
+}

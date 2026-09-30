@@ -17,6 +17,46 @@ comparison with rational-circle/Pontryagin characters of abelian torsion groups.
 It does not assert these statements for arbitrary topological groups, arbitrary
 subgroups, or nontorsion character groups.
 
+## Headline results
+
+- **Arithmetic with arbitrary prime exponents.** A supernatural number has an
+  `ℕ∞` exponent at every prime, without a finite-support restriction.
+  Multiplication adds exponents and divisibility is pointwise order; the
+  complete-lattice bottom is one. Infinite `iProd` uses suprema of exponent
+  sums over finite subfamilies of a `Type`-indexed family, whereas `iSup` and
+  `iInf` accept arbitrary `Sort` indices. The positive-natural `ofPNat` and
+  explicit all-natural `ofNat` preserve multiplication and reflect
+  divisibility; `ofNat 0 = ⊤` and neither map installs a numeral coercion.
+  [`iSup_ofNat_dvd_iff`](SupernaturalNumbers/NatEmbedding.lean#L129)
+  characterizes the supernatural least common multiple of a `Sort`-indexed
+  natural-number family, including empty-family and zero cases. See
+  [Basic](SupernaturalNumbers/Basic.lean) and
+  [NatEmbedding](SupernaturalNumbers/NatEmbedding.lean).
+- **The closed-subgroup index tower law.** The supernatural
+  [`profiniteOrder`](SupernaturalNumbers/Order.lean#L34) and
+  [`profiniteIndex`](SupernaturalNumbers/Order.lean#L43) use finite quotients
+  of a profinite group. For closed subgroups `N ≤ H` of the **same** ambient
+  profinite group,
+  [`profiniteIndex_tower`](SupernaturalNumbers/Tower.lean#L306) proves
+  `[G : N] = [G : H] * [H : N]`, taking the relative index in `H` via
+  `closedSubgroupWithin H N hNH`. Normality is not required, but closedness
+  and the common profinite ambient group are.
+- **Torsion and character orders.** For an additive abelian group `A` with
+  `IsAddTorsion A`,
+  [`characterEquivProfiniteCharacter`](SupernaturalNumbers/Characters.lean#L402)
+  identifies its rational-circle-valued characters with the additive group
+  underlying its profinite character group; the
+  [`torsionOrder_eq_profiniteOrder_character`](SupernaturalNumbers/Characters.lean#L451)
+  theorem equates their supernatural orders. The topology-free wrapper gives
+  `A` the discrete topology; the lower-level Pontryagin interface requires
+  explicit topological assumptions. These noncomputable constructions make
+  no nontorsion or general Pontryagin-duality claim.
+
+Mathlib supplies prime-factorization, finite/profinite-group and Pontryagin
+infrastructure; this library supplies the supernatural arithmetic and bridges.
+See the [API reference](docs/API.md) and
+[checked finite and infinite examples](SupernaturalNumbersTests/ReleaseClients.lean).
+
 ## Modules and first use
 
 `import SupernaturalNumbers` publicly reexports all five subject modules:
@@ -70,8 +110,8 @@ The [generated API](docs/API.md) gives all 104 native production entries and
 16 publicly named checked-use client entries with their native displayed Lean
 signatures, source links and original docstrings. Its
 [reproduction and scope](docs/README.md) distinguish native generated/inherited
-entries from authored declarations and the separate complete private/generated
-and stored-proof release audit. The [hash manifest](docs/api-manifest.json) binds
+entries from authored declarations and the separate complete transitive
+private/generated standard-axiom audit. The [hash manifest](docs/api-manifest.json) binds
 eight native records and all eleven unchanged mathematical/build input files;
 it cannot authenticate itself or certify a future release.
 
@@ -86,8 +126,6 @@ records its resolved dependencies. From this repository's root:
 elan toolchain install leanprover/lean4:v4.34.0-rc2
 lake exe cache get
 lake --wfail build
-lake env lean -DwarningAsError=true SupernaturalNumbersTests/ReleaseClients.lean
-lake env lean -DwarningAsError=true -T0 SupernaturalNumbersTests/ReleaseClients.lean
 ```
 
 **Fetch the matching mathlib cache successfully before any build.** If that
@@ -99,8 +137,12 @@ a finite closed-subgroup tower and a finite torsion-character comparison.
 They also check automatic simplification of one and empty supernatural and
 natural families, including the complete-lattice bottom projection, alongside
 explicit use of the retained named arithmetic lemmas.
-The commands check examples; they do not replace a full shipped-proof census,
-separate stored-proof recheck or independent mathematical review.
+For acceptance, the warning-fatal default build is accompanied by a complete
+transitive standard-axiom audit, including private and generated declarations,
+and independent review. The allowed axioms are `propext`, `Classical.choice`
+and `Quot.sound`; the API inventory and build do not replace that audit.
+An additional stored-proof replay or repeated client builds are not mandatory
+gates. Applicable unchanged-input CI build/audit evidence can be reused.
 
 ### Measured build baseline
 
@@ -121,20 +163,14 @@ those steps; a full mathlib source rebuild was not measured. On comparable
 cache-ready hardware, expect project-only builds on the order of tens of seconds;
 resource needs and timings can vary with the host and parallelism.
 
-As of September 25, 2026, the mathematical library, `Supernatural.bot_eq_one`,
-simplifier changes, checked clients, notices, LICENSE and earlier metadata were
-independently reviewed (ordinary acceptance issue 12 / 40303 and integration
-40306) at accepted internal `main` commit
-`cc3e8d151c87585111df3abe6d2c40d9f10971c6` (tree
-`15e99ee28ce447f921b0e74f9ad71e3ce85509b5`). The **new** generated API,
-documentation tooling and revised metadata are author work pending whole-final-
-candidate independent review, provenance/rights checks and integration. The
-separate complete current-tree private/generated declaration and stored-body
-audit is not certified by an authored-docstring inventory or these native docs.
-An official internal or public release requires a revision-specific independent
-acceptance record identifying the exact release commit/tree and applicable
-proof, documentation, dependency, rights and public-history evidence. Neither
-this README, a build, the manifest nor Lake's `0.1.0` version is a release registry.
+The library includes the generated native API, checked clients, explanatory
+documentation and formalization metadata alongside its mathematical modules.
+The initial private publication and its review have separate exact-revision
+records; this README and Lake's `0.1.0` version neither identify an accepted
+successor nor certify a particular published GitHub snapshot. Each successor
+needs its own revision-specific independent review, applicable build/axiom
+evidence, rights/provenance assessment and verified release/publication record.
+No complete-source formalization or public-visibility decision is claimed.
 
 Original repository code is licensed under Apache-2.0; see `LICENSE` and
 the retained SPDX headers. Mathlib and other dependencies keep their own
@@ -143,33 +179,19 @@ in `formalization.yaml`; detailed source-level coverage is recorded separately.
 
 ## Contribution provenance
 
-Beacon authored the original project implementation and module prose. The five
-subject modules began in the following revisions (later development history is
-retained):
-
-| Module | Original contribution |
-| --- | --- |
-| Basic | `FormalFrontier/supernatural-numbers@e7d74e017f1d4f3a89c9a96af3880bb55222786b:SupernaturalNumbers/Basic.lean` |
-| Order | `FormalFrontier/supernatural-numbers@d00f949a628d2c871f678e63e5d0fc9be1f07b59:SupernaturalNumbers/Order.lean` |
-| Tower | `FormalFrontier/supernatural-numbers@d13dbd46dd486c21828bdd746001caae747d0b47:SupernaturalNumbers/Tower.lean` |
-| Characters | `FormalFrontier/supernatural-numbers@e4b42857ddbaa0d1413a909f3c09a8a2655a74b8:SupernaturalNumbers/Characters.lean` |
-| NatEmbedding | `FormalFrontier/supernatural-numbers@279a51fe37f9564931fc027545ed5202bdb22117:SupernaturalNumbers/NatEmbedding.lean` |
-
-Worker-b contributed the readiness clients and metadata in
-`FormalFrontier/supernatural-numbers@aa06e8cb4c359a2ae36c10632dd9b43d32692bd5:SupernaturalNumbersTests/ReleaseClients.lean`
-and the documented bottom/simplification repair in
-`FormalFrontier/supernatural-numbers@ec48995236f103daa39077c4b97f360b2ddf0133:SupernaturalNumbers/Basic.lean`;
-Beacon assembled the notice and status corrections. These are AI-agent
-contributions, not claims of a named human author or copyright holder.
-Worker-b Hive Task `hive-request-64db144d6c068a16068b0f8d7266fa30d0f8d322`
-(UID `d6907a4c-c8b1-4f99-a90d-830e128ab9c2`) authored the new API
-documentation and adapter; its [origin and reuse](docs/README.md) are recorded
-without suggesting inherited review approval.
+Beacon contributed the initial mathematical implementation and module prose,
+then assembled the notices and corrections. Other AI-agent contributions added
+the checked clients, metadata, complete-lattice bottom/simplification repair and
+native API documentation and adapter. Folio contributed the distinct headline
+exposition used in this reader-facing summary. The adapter's
+[recipe lineage](docs/README.md) credits its Root Stability and Anchor Ideal
+precursors without transferring their review status. These are contributions
+by AI agents under the collective “Formal Frontier Agents” author credit, not
+claims of a separately identified human author or copyright holder.
 
 The five initial project-generated ownership assertions naming "Formal Frontier
 Authors" had no established ownership basis and have been removed under the
-project's reviewed correction procedure. Their original revisions remain in
-history. Apache-2.0 notices, collective author credit and actual contributor
+project's reviewed correction procedure. Apache-2.0 notices, collective author credit and actual contributor
 provenance are retained; no replacement owner is asserted. This correction does
 not remove any identified third-party notice or clear unrelated rights concerns.
 

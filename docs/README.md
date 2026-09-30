@@ -9,10 +9,10 @@ leaf, and its test root. Native records contain 104 production declaration entri
 (including a generated `ext_iff` entry and an undocumented anonymous
 `CompleteLattice` instance), 16 publicly named client entries (15 theorems and a
 definition), one separate native instance-registry entry, and zero own entries
-for the two reexport-only roots. This is not the private/generated declaration
-or stored-proof census. A release requires a separate complete audit of those
-bodies and the exact candidate tree; neither this reference nor a manifest
-certifies them.
+for the two reexport-only roots. This is not the complete transitive
+private/generated standard-axiom audit. A release also requires the applicable
+warning-fatal build, independent review and acceptance of the exact candidate;
+neither this reference nor a manifest certifies those checks.
 
 Signatures are native **displayed** Lean text. The adapter removes inert HTML
 markup and collapses presentation whitespace, without eliding displayed
@@ -47,13 +47,15 @@ native C compiler is absent from `PATH`, prepend `$(dirname "$(elan which lean)"
 while building the separate tool. Its build does not depend on mathlib.
 
 From the project root, successfully fetch the matching mathlib cache **before**
-any library build. Bounded `LAKE_NUM_JOBS` controls Lake scheduling, while
-`LEAN_NUM_THREADS` is a Lean runtime setting (neither is a global memory limit).
+any library build. `LEAN_NUM_THREADS` controls Lean runtime workers, not the
+aggregate build process count or memory. The following historical native
+extraction recipe is optional, not a mandatory release replay; the ordinary
+warning-fatal default build includes the client root.
 
 ```sh
 elan toolchain install "$(cat lean-toolchain)"
-LEAN_NUM_THREADS=2 LAKE_NUM_JOBS=2 lake exe cache get
-LEAN_NUM_THREADS=2 LAKE_NUM_JOBS=2 lake --wfail build
+lake exe cache get
+lake --wfail build
 TOOL=/absolute/path/to/doc-gen4/.lake/build/bin/doc-gen4
 OUT=/fresh/temporary/supernatural-native
 REV=cc3e8d151c87585111df3abe6d2c40d9f10971c6
@@ -90,15 +92,9 @@ raw record bytes, module/dependency graph, search path and complete command
 receipts externally for independent review. Generated HTML, JavaScript, CSS,
 fonts, third-party websites and dependency docstrings are not shipped.
 
-This adapter was adapted by worker-b Hive Task
-`hive-request-64db144d6c068a16068b0f8d7266fa30d0f8d322` (UID
-`d6907a4c-c8b1-4f99-a90d-830e128ab9c2`) from the polynomial-root-stability
-adapter originally contributed by worker-b at
-`FormalFrontier/polynomial-root-stability@d31add515b6fd4a55612241a5b0f470c129cc467`
-and corrected for source-only reproduction by Beacon at
-`f7ef00335857f1a22e0a241a57398b98f40f180a`. That adapter credits
-Anchor's unaccepted ideal-completion recipe at
-`f0c8c34386109116e4912fb425a8ad15d9dc42a4`; reuse conveys no review
-verdict. Only project docstrings and native displayed signatures are included,
+This adapter draws on the Formal Frontier Root Stability native Markdown
+adapter, Beacon's source-only reproduction correction and Anchor's Ideal
+Completion recipe. Those precursors retain their own independent review status;
+reuse does not convey approval. Only project docstrings and native displayed signatures are included,
 not donor modules, upstream implementation, website assets or external texts.
 Mathlib, Lean and doc-gen4 retain their upstream terms and attribution.

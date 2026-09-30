@@ -4,8 +4,8 @@ Pinned native doc-gen4 signatures for all 120 native declaration entries in
 eight shipped modules: 104 production entries (including generated `ext_iff`
 and an undocumented anonymous instance) and 16 publicly named checked-use
 client entries (including a definition). Both root modules reexport their leaves
-and define no own native entries. This is not the complete private/generated
-declaration or stored-proof census; that requires a separate release audit.
+and define no own native entries. This is not the complete transitive
+private/generated standard-axiom audit required for release.
 
 Signatures retain every *displayed* implicit binder, class and universe label.
 Only HTML markup and formatting whitespace are normalized. An instance or

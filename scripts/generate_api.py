@@ -3,9 +3,8 @@
 # Authors: Formal Frontier Agents
 """Bounded native doc-gen4 Markdown adapter for Supernatural Numbers.
 
-Adapted by worker-b from polynomial-root-stability d31add515b6fd4a55612241a5b0f470c129cc467,
-with Beacon's source-only correction f7ef00335857f1a22e0a241a57398b98f40f180a;
-that adapter credited Anchor's ideal-completion recipe f0c8c34386109116e4912fb425a8ad15d9dc42a4.
+Adapted from the Formal Frontier Root Stability adapter, with Beacon's
+source-only reproduction correction and Anchor's Ideal Completion recipe.
 The independent raw native records and generation commands remain necessary review inputs.
 """
 
@@ -267,8 +266,8 @@ def render(records, revision, sources, raw_records, expected_native_hashes=NATIV
              "eight shipped modules: 104 production entries (including generated `ext_iff`",
              "and an undocumented anonymous instance) and 16 publicly named checked-use",
              "client entries (including a definition). Both root modules reexport their leaves",
-             "and define no own native entries. This is not the complete private/generated",
-             "declaration or stored-proof census; that requires a separate release audit.", "",
+             "and define no own native entries. This is not the complete transitive",
+             "private/generated standard-axiom audit required for release.", "",
              "Signatures retain every *displayed* implicit binder, class and universe label.",
              "Only HTML markup and formatting whitespace are normalized. An instance or",
              "definition signature does not certify its body. Native docstrings are labeled",

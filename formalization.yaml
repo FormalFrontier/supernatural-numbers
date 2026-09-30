@@ -36,46 +36,41 @@ related_formalizations:
 automation:
   methods:
     - method: "agent"
-      framework: "Formal Frontier Hive Tasks, Codex CLI, Lean 4 and mathlib"
+      framework: "Codex CLI (Formal Frontier Hive), Lean 4 and mathlib"
       tool_setup: >-
-        AI agent Beacon authored the initial mathematical library and the
-        worker-b AI agent prepared downstream clients, readiness metadata and
-        the new complete-lattice bottom theorem and simplification repair.
-        Beacon assembled the notice and status corrections. The separate
-        worker-b Hive Task hive-request-64db144d6c068a16068b0f8d7266fa30d0f8d322
-        prepared native doc-gen4 Markdown documentation and bounded validation
-        tooling. Lean checked the accepted ordinary candidate; final-head
-        whole-artifact checks and fresh independent release review remain
-        required. Exact model versions and total costs were not recorded here.
+        AI agents using Codex CLI, Lean 4 and mathlib developed the mathematical
+        library, checked clients, metadata, bottom/simplification repair and
+        native doc-gen4 Markdown adapter. Beacon assembled the original modules,
+        notices and corrections; Folio contributed headline exposition. The
+        matching mathlib cache precedes a warning-fatal default build, and
+        release acceptance separately requires a complete transitive
+        standard-axiom audit and independent review. Exact model versions and
+        total costs were not recorded here.
   notes: >-
     Formal Frontier Agents is the collective formalization credit. Beacon
     is an AI-agent contributor, not a separately identified human author.
-    Original Beacon module revisions and later worker-b contributions are
-    identified in README.md. Five unsupported project-generated ownership
-    assertions were removed while retaining their historical records, Apache
-    notices and actual contributor credit. Genuine third-party attribution
-    remains protected; collective credit does not establish copyright ownership.
-    The generated API copies only native displayed signatures and project
-    docstrings; the exact donor recipe lineage is documented in docs/README.md.
+    Beacon's original modules, other AI-agent client/metadata/bottom and native
+    documentation contributions, Folio's headline exposition and the adapter's
+    Root Stability/Anchor Ideal recipe lineage are credited in README.md and
+    docs/README.md. Unsupported project-generated ownership assertions were
+    removed without inventing a copyright holder; Apache notices, collective
+    credit and genuine third-party attribution remain. The generated API includes
+    native displayed signatures and project docstrings, not external book text.
 
 status:
   scope: >-
     Reusable supernatural-number arithmetic, finite-quotient profinite
     order and closed-subgroup index, their tower law, and torsion-character
-    comparison under the hypotheses declared in Lean. No complete source
-    coverage or official release is asserted.
+    comparison under the hypotheses declared in Lean. This metadata does not
+    assert complete source coverage or certify any particular release snapshot.
 
 review:
   status: "self-assessed"
   notes: >-
-    As recorded September 25, 2026, ordinary acceptance issue 12 / 40303 and
-    integration 40306 apply to the library, bot_eq_one, simplifier changes,
-    clients, notices, license and earlier metadata at internal main commit
-    cc3e8d151c87585111df3abe6d2c40d9f10971c6 (tree
-    15e99ee28ce447f921b0e74f9ad71e3ce85509b5). The new native API,
-    tooling and metadata revision are not thereby accepted: their whole final
-    candidate needs fresh independent review, rights assessment and proof
-    evidence applicability. The complete private/generated declaration and
-    stored-proof audit, exact release acceptance and publication are separate.
-    This author-time report is not a live release registry; schema validation
-    and ordinary development acceptance do not certify an official release.
+    Earlier mathematical and documentation content underwent independent
+    review and initial private publication. This self-report does not transfer
+    that verdict to later candidates: each successor requires its own applicable
+    warning-fatal build and complete private/generated transitive standard-axiom
+    evidence, independent review, rights assessment and verified publication.
+    Schema validation and this metadata do not certify the current revision or
+    independently establish its release status.
