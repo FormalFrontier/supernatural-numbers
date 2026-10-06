@@ -112,14 +112,15 @@ signatures, source links and original docstrings. Its
 [reproduction and scope](docs/README.md) distinguish native generated/inherited
 entries from authored declarations and the separate complete transitive
 private/generated standard-axiom audit. The [hash manifest](docs/api-manifest.json) binds
-eight native records and all eleven unchanged mathematical/build input files;
+eight native records and all eleven mathematical/build input files recorded for
+the historical API/documentation snapshot;
 it cannot authenticate itself or certify a future release.
 
 ## Reproduce and check
 
 Install the toolchain recorded in `lean-toolchain` (currently Lean
 `v4.34.0-rc2`). `lakefile.toml` pins mathlib at
-`e37d88a26f3791ed5a93daa1f949af1021b8d103`; `lake-manifest.json`
+`83abb3e776bdefcbc447a1e44d0debe4010039e5`; `lake-manifest.json`
 records its resolved dependencies. From this repository's root:
 
 ```sh
@@ -147,7 +148,8 @@ gates. Applicable unchanged-input CI build/audit evidence can be reused.
 ### Measured build baseline
 
 On September 25, 2026, a Linux x86_64 check of the unchanged eight Lean modules
-with the pins above took **39.9 seconds** for eight sequential module builds
+with Mathlib `e37d88a26f3791ed5a93daa1f949af1021b8d103` and Lean
+`v4.34.0-rc2` took **39.9 seconds** for eight sequential module builds
 starting without project build outputs but **with the matching dependency cache**.
 The largest sampled process-group resident memory was **2.41 GiB**. A subsequent
 warm default build took **3.95 seconds**, with **0.84 GiB** sampled resident memory.

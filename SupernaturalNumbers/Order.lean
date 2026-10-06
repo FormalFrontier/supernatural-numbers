@@ -79,10 +79,12 @@ theorem profiniteIndex_whole (G : ProfiniteGrp) :
     profiniteIndex (wholeClosedSubgroup G) = 1 := by
   apply le_antisymm
   · refine iSup_le fun U ↦ ?_
-    simp [ofFiniteIndex, wholeClosedSubgroup, Subgroup.map_top]
+    simp only [ofFiniteIndex, wholeClosedSubgroup, Subgroup.map_top,
+      QuotientGroup.range_mk', Subgroup.index_top, PNat.mk_ofNat, ofPNat_one]
     exact le_rfl
   · refine le_iSup_of_le (wholeOpenNormalSubgroup G) ?_
-    simp [ofFiniteIndex, wholeClosedSubgroup, Subgroup.map_top]
+    simp only [ofFiniteIndex, wholeClosedSubgroup, Subgroup.map_top,
+      QuotientGroup.range_mk', Subgroup.index_top, PNat.mk_ofNat, ofPNat_one]
     exact le_rfl
 
 /-- Supernatural index reverses inclusion of closed subgroups. -/
@@ -118,7 +120,7 @@ theorem torsionOrder_eq_ofFiniteCard (A : Type*) [AddCommGroup A] [Finite A]
     exact PNat.dvd_iff.mpr B.1.card_addSubgroup_dvd_card
   · let B : FiniteAddSubgroup A := ⟨⊤, inferInstance⟩
     refine le_iSup_of_le B ?_
-    simp [B, ofFiniteCard]
+    simp only [ofFiniteCard, AddSubgroup.mem_top, Nat.card_subtype_true, B]
     exact le_rfl
 
 end Supernatural

@@ -2,10 +2,16 @@ name = "supernatural-numbers"
 version = "0.1.0"
 defaultTargets = ["SupernaturalNumbers", "SupernaturalNumbersTests"]
 
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+weak.linter.style.header = false
+
 [[require]]
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4.git"
-rev = "e37d88a26f3791ed5a93daa1f949af1021b8d103"
+rev = "83abb3e776bdefcbc447a1e44d0debe4010039e5"
 
 [[lean_lib]]
 name = "SupernaturalNumbers"
