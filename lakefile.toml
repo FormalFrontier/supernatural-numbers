@@ -13,6 +13,11 @@ name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4.git"
 rev = "83abb3e776bdefcbc447a1e44d0debe4010039e5"
 
+[[require]]
+name = "groupTheory"
+git = "https://github.com/FormalFrontier/group-theory.git"
+rev = "3e8a081e55131925882bf8e772f519664a403392"
+
 [[lean_lib]]
 name = "SupernaturalNumbers"
 

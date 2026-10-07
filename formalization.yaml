@@ -32,6 +32,11 @@ related_formalizations:
     note: >-
       Reuses mathlib's prime factorization, finite group, profinite group,
       and Pontryagin-duality libraries at the revision pinned in lakefile.toml.
+  - id: "https://github.com/FormalFrontier/group-theory"
+    relationship: "builds-on"
+    note: >-
+      Reuses the released canonical rational-circle inclusions and finite-order
+      preimage results, following their original formalization in this library.
 
 automation:
   methods:

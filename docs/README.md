@@ -3,9 +3,10 @@
 [Generated API](API.md) · [binding manifest](api-manifest.json) ·
 [library overview](../README.md)
 
-The checked-in reference uses native doc-gen4 output for **all eight** shipped
-Lean modules: five production leaves, their public root, the checked-use client
-leaf, and its test root. Native records contain 104 production declaration entries
+The checked-in historical reference uses native doc-gen4 output for **all eight** Lean
+modules in its analyzed snapshot: five production leaves, their public root,
+the checked-use client leaf, and its test root. Native records contain 104
+production declaration entries
 (including a generated `ext_iff` entry and an undocumented anonymous
 `CompleteLattice` instance), 16 publicly named client entries (15 theorems and a
 definition), one separate native instance-registry entry, and zero own entries
@@ -37,8 +38,9 @@ analyzed bytes, even in a source-only archive or isolated parentless checkout.
 The manifest cannot authenticate itself or name its own future commit; external
 review must bind the **final** candidate commit/tree and those bytes.
 
-Install `leanprover/lean4:v4.34.0-rc2` and the exact mathlib graph pinned in
-`../lakefile.toml` and `../lake-manifest.json`. Clone `leanprover/doc-gen4` in
+To reproduce that snapshot, use its pinned source and dependency inputs recorded
+in the binding manifest, rather than this repository's later dependency graph.
+Install `leanprover/lean4:v4.34.0-rc2`. Clone `leanprover/doc-gen4` in
 an independent checkout at `97d4ecdfc8e09e7f511724c25e303d448de6a3db`
 (tree `ebf77f3e174c145c9ca2db0df1c18a78ae87c93b`), using its own
 committed manifest, and build its core-only `doc-gen4` executable there with

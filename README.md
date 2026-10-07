@@ -43,10 +43,10 @@ subgroups, or nontorsion character groups.
   and the common profinite ambient group are.
 - **Torsion and character orders.** For an additive abelian group `A` with
   `IsAddTorsion A`,
-  [`characterEquivProfiniteCharacter`](SupernaturalNumbers/Characters.lean#L402)
+  [`characterEquivProfiniteCharacter`](SupernaturalNumbers/Characters.lean#L355)
   identifies its rational-circle-valued characters with the additive group
   underlying its profinite character group; the
-  [`torsionOrder_eq_profiniteOrder_character`](SupernaturalNumbers/Characters.lean#L451)
+  [`torsionOrder_eq_profiniteOrder_character`](SupernaturalNumbers/Characters.lean#L404)
   theorem equates their supernatural orders. The topology-free wrapper gives
   `A` the discrete topology; the lower-level Pontryagin interface requires
   explicit topological assumptions. These noncomputable constructions make
@@ -54,8 +54,20 @@ subgroups, or nontorsion character groups.
 
 Mathlib supplies prime-factorization, finite/profinite-group and Pontryagin
 infrastructure; this library supplies the supernatural arithmetic and bridges.
+The released `groupTheory` library supplies the canonical rational-circle
+inclusions and finite-order preimages through
+`GroupTheory.Topology.RationalCircle`, following their original formalization
+in this library. Publicly importing `SupernaturalNumbers` also exposes these
+declarations. Use `AddCircle.rationalToReal`, `AddCircle.rationalToCircle`,
+`AddCircle.exists_rational_preimage_of_isOfFinAddOrder` and
+`Circle.exists_rational_preimage_of_isOfFinOrder` in new code. The seven former
+`Supernatural` names in `Characters` remain deprecated aliases from
+October 7, 2026, retained for at least three months. Group Theory's
+open-kernel comparison for compact groups is distinct from this library's
+discrete torsion-group character equivalence.
 See the [API reference](docs/API.md) and
-[checked finite and infinite examples](SupernaturalNumbersTests/ReleaseClients.lean).
+[checked finite and infinite examples](SupernaturalNumbersTests/ReleaseClients.lean),
+as well as [rational-circle clients](SupernaturalNumbersTests/RationalCircle.lean).
 
 ## Modules and first use
 
@@ -106,9 +118,9 @@ topology internally. The lower-level Pontryagin theorem instead assumes an
 explicit `DiscreteTopology A`. See the finite `ZMod 6` and infinite-product
 examples in the checked test library for the actual hypotheses and boundaries.
 
-The [generated API](docs/API.md) gives all 104 native production entries and
-16 publicly named checked-use client entries with their native displayed Lean
-signatures, source links and original docstrings. Its
+The [historical generated API](docs/API.md) gives 104 native production entries and
+16 publicly named checked-use client entries from its analyzed snapshot, with
+their native displayed Lean signatures, source links and original docstrings. Its
 [reproduction and scope](docs/README.md) distinguish native generated/inherited
 entries from authored declarations and the separate complete transitive
 private/generated standard-axiom audit. The [hash manifest](docs/api-manifest.json) binds
@@ -120,8 +132,10 @@ it cannot authenticate itself or certify a future release.
 
 Install the toolchain recorded in `lean-toolchain` (currently Lean
 `v4.34.0-rc2`). `lakefile.toml` pins mathlib at
-`83abb3e776bdefcbc447a1e44d0debe4010039e5`; `lake-manifest.json`
-records its resolved dependencies. From this repository's root:
+`83abb3e776bdefcbc447a1e44d0debe4010039e5` and the released
+`groupTheory` library at `3e8a081e55131925882bf8e772f519664a403392`;
+`lake-manifest.json` records their resolved dependencies. From this repository's
+root:
 
 ```sh
 elan toolchain install leanprover/lean4:v4.34.0-rc2
@@ -132,12 +146,15 @@ lake --wfail build
 **Fetch the matching mathlib cache successfully before any build.** If that
 fetch fails, diagnose it rather than rebuilding all of mathlib silently. The
 default build includes the separate `SupernaturalNumbersTests` library; its
-root imports `SupernaturalNumbersTests.ReleaseClients`. These tests demonstrate
+root imports `SupernaturalNumbersTests.ReleaseClients` and
+`SupernaturalNumbersTests.RationalCircle`. These tests demonstrate
 root-import arithmetic, a genuinely infinite exponent, the zero boundary,
 a finite closed-subgroup tower and a finite torsion-character comparison.
 They also check automatic simplification of one and empty supernatural and
 natural families, including the complete-lattice bottom projection, alongside
-explicit use of the retained named arithmetic lemmas.
+explicit use of the retained named arithmetic lemmas. The rational-circle
+clients also exercise the canonical imports, deprecated aliases and finite
+character cardinality.
 For acceptance, the warning-fatal default build is accompanied by a complete
 transitive standard-axiom audit, including private and generated declarations,
 and independent review. The allowed axioms are `propext`, `Classical.choice`

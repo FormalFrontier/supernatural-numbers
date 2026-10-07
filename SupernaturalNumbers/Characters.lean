@@ -5,6 +5,7 @@ Authors: Formal Frontier Agents
 module
 
 public import SupernaturalNumbers.Order
+public import GroupTheory.Topology.RationalCircle
 public import Mathlib.Algebra.Module.CharacterModule
 public import Mathlib.Analysis.Fourier.FiniteAbelian.PontryaginDuality
 public import Mathlib.Topology.Algebra.PontryaginDual
@@ -16,6 +17,10 @@ This file identifies rational-circle characters of an abelian torsion group
 with its circle-valued Pontryagin dual when the group is discrete.  It proves
 that this dual is profinite and compares its supernatural order with the
 finite-subgroup definition of torsion order.
+
+The rational-circle inclusions and finite-order preimages are supplied by
+`GroupTheory.Topology.RationalCircle`; the former `Supernatural` names remain
+as deprecated compatibility aliases.
 -/
 
 @[expose] public section
@@ -26,87 +31,35 @@ namespace Supernatural
 
 noncomputable section
 
-/-- The injective map from the rational additive circle into the real additive circle. -/
-def rationalAddCircleToReal : AddCircle (1 : ℚ) →+ AddCircle (1 : ℝ) :=
-  QuotientAddGroup.map (AddSubgroup.zmultiples (1 : ℚ))
-    (AddSubgroup.zmultiples (1 : ℝ)) (Rat.castHom ℝ).toAddMonoidHom (by
-      rw [← AddSubgroup.map_le_iff_le_comap, AddMonoidHom.map_zmultiples]
-      simp)
+/-- The canonical inclusion from the rational circle into the real additive circle. -/
+@[deprecated (since := "2026-10-07")]
+alias rationalAddCircleToReal := AddCircle.rationalToReal
 
-/-- On a rational representative, `rationalAddCircleToReal` sends its class modulo
-the integers to its image in the real circle. -/
-@[simp]
-theorem rationalAddCircleToReal_mk (q : ℚ) :
-    rationalAddCircleToReal (q : AddCircle (1 : ℚ)) = ((q : ℝ) : AddCircle (1 : ℝ)) :=
-  rfl
+/-- The canonical inclusion evaluated on a rational representative. -/
+@[deprecated (since := "2026-10-07")]
+alias rationalAddCircleToReal_mk := AddCircle.rationalToReal_mk
 
-/-- The rational additive circle embeds in the real additive circle. -/
-theorem rationalAddCircleToReal_injective : Function.Injective rationalAddCircleToReal := by
-  rw [← AddMonoidHom.ker_eq_bot_iff]
-  ext x
-  constructor
-  · intro hx
-    obtain ⟨q, rfl⟩ := QuotientAddGroup.mk'_surjective _ x
-    rw [AddSubgroup.mem_bot]
-    rw [AddMonoidHom.mem_ker] at hx
-    change ((q : ℝ) : AddCircle (1 : ℝ)) = 0 at hx
-    rw [AddCircle.coe_eq_zero_iff] at hx
-    obtain ⟨n, hn⟩ := hx
-    rw [zsmul_one] at hn
-    apply (QuotientAddGroup.eq_zero_iff q).mpr
-    rw [AddSubgroup.mem_zmultiples_iff]
-    exact ⟨n, by simpa using Rat.cast_injective hn⟩
-  · intro hx
-    rw [AddSubgroup.mem_bot] at hx
-    rw [AddMonoidHom.mem_ker, hx, map_zero]
+/-- The canonical inclusion into the real additive circle is injective. -/
+@[deprecated (since := "2026-10-07")]
+alias rationalAddCircleToReal_injective := AddCircle.rationalToReal_injective
 
-/-- The standard additive embedding of the rational circle into the unit circle. -/
-def rationalCircleToCircle : AddCircle (1 : ℚ) →+ Additive Circle where
-  toFun q := Additive.ofMul (AddCircle.toCircle (rationalAddCircleToReal q))
-  map_zero' := by simp
-  map_add' x y := by
-    change AddCircle.toCircle (rationalAddCircleToReal (x + y)) =
-      AddCircle.toCircle (rationalAddCircleToReal x) *
-        AddCircle.toCircle (rationalAddCircleToReal y)
-    rw [map_add, AddCircle.toCircle_add]
+/-- The canonical inclusion from the rational circle into the unit circle. -/
+@[deprecated (since := "2026-10-07")]
+alias rationalCircleToCircle := AddCircle.rationalToCircle
 
-/-- The standard map from the rational circle to the unit circle is injective. -/
-theorem rationalCircleToCircle_injective : Function.Injective rationalCircleToCircle := by
-  intro x y h
-  apply rationalAddCircleToReal_injective
-  apply AddCircle.injective_toCircle (by norm_num : (1 : ℝ) ≠ 0)
-  exact congrArg Additive.toMul h
+/-- The canonical inclusion into the unit circle is injective. -/
+@[deprecated (since := "2026-10-07")]
+alias rationalCircleToCircle_injective := AddCircle.rationalToCircle_injective
 
-/-- Every finite-order point of the real additive circle comes from the rational circle. -/
-theorem exists_rational_preimage_of_isOfFinAddOrder
-    {u : AddCircle (1 : ℝ)} (hu : IsOfFinAddOrder u) :
-    ∃ q : AddCircle (1 : ℚ), rationalAddCircleToReal q = u := by
-  obtain ⟨x, rfl⟩ := QuotientAddGroup.mk'_surjective (AddSubgroup.zmultiples (1 : ℝ)) u
-  obtain ⟨q, hq⟩ := (AddCircle.isOfFinAddOrder_iff_exists_rat_eq_div).mp hu
-  refine ⟨(q : AddCircle (1 : ℚ)), ?_⟩
-  rw [rationalAddCircleToReal_mk]
-  simpa using congrArg (fun y : ℝ ↦ (y : AddCircle (1 : ℝ))) hq
+/-- Every finite-order point of the real additive circle has a rational preimage. -/
+@[deprecated (since := "2026-10-07")]
+alias exists_rational_preimage_of_isOfFinAddOrder :=
+  AddCircle.exists_rational_preimage_of_isOfFinAddOrder
 
-/-- Every finite-order point of the unit circle comes from the rational circle. -/
-theorem exists_rationalCircle_preimage_of_isOfFinOrder
-    {z : Circle} (hz : IsOfFinOrder z) :
-    ∃ q : AddCircle (1 : ℚ), Additive.toMul (rationalCircleToCircle q) = z := by
-  let e := AddCircle.homeomorphCircle (by norm_num : (1 : ℝ) ≠ 0)
-  let u : AddCircle (1 : ℝ) := e.symm z
-  have heu : u.toCircle = z := by
-    rw [← AddCircle.homeomorphCircle_apply (by norm_num : (1 : ℝ) ≠ 0)]
-    exact e.apply_symm_apply z
-  have hu : IsOfFinAddOrder u := by
-    obtain ⟨n, hn, hzn⟩ := hz.exists_pow_eq_one
-    refine isOfFinAddOrder_iff_nsmul_eq_zero.mpr ⟨n, hn, ?_⟩
-    apply AddCircle.injective_toCircle (by norm_num : (1 : ℝ) ≠ 0)
-    rw [AddCircle.toCircle_nsmul, AddCircle.toCircle_zero]
-    rw [heu, hzn]
-  obtain ⟨q, hq⟩ := exists_rational_preimage_of_isOfFinAddOrder hu
-  refine ⟨q, ?_⟩
-  change AddCircle.toCircle (rationalAddCircleToReal q) = z
-  rw [hq]
-  exact heu
+/-- Every finite-order point of the unit circle has a rational preimage. -/
+@[deprecated (since := "2026-10-07")]
+alias exists_rationalCircle_preimage_of_isOfFinOrder :=
+  Circle.exists_rational_preimage_of_isOfFinOrder
 
 variable (A : Type*) [AddCommGroup A] [TopologicalSpace A] [DiscreteTopology A]
 
@@ -176,12 +129,12 @@ def profinitePontryaginDual (hA : IsAddTorsion A) : ProfiniteGrp := by
 /-- Postcompose a rational character with the standard inclusion into the circle. -/
 def characterToPontryagin (c : CharacterModule A) :
     PontryaginDual (Multiplicative A) where
-  toFun a := Additive.toMul (rationalCircleToCircle (c a.toAdd))
+  toFun a := Additive.toMul (AddCircle.rationalToCircle (c a.toAdd))
   map_one' := by simp
   map_mul' a b := by
-    change Additive.toMul (rationalCircleToCircle (c (a.toAdd + b.toAdd))) =
-      Additive.toMul (rationalCircleToCircle (c a.toAdd)) *
-        Additive.toMul (rationalCircleToCircle (c b.toAdd))
+    change Additive.toMul (AddCircle.rationalToCircle (c (a.toAdd + b.toAdd))) =
+      Additive.toMul (AddCircle.rationalToCircle (c a.toAdd)) *
+        Additive.toMul (AddCircle.rationalToCircle (c b.toAdd))
     rw [map_add, map_add]
     rfl
   continuous_toFun := continuous_of_discreteTopology
@@ -194,15 +147,15 @@ def characterToPontryaginHom :
     apply Additive.toMul.injective
     apply PontryaginDual.ext
     intro a
-    change Additive.toMul (rationalCircleToCircle (0 : AddCircle (1 : ℚ))) = 1
+    change Additive.toMul (AddCircle.rationalToCircle (0 : AddCircle (1 : ℚ))) = 1
     simp
   map_add' c d := by
     apply Additive.toMul.injective
     apply PontryaginDual.ext
     intro a
-    change Additive.toMul (rationalCircleToCircle (c a.toAdd + d a.toAdd)) =
-      Additive.toMul (rationalCircleToCircle (c a.toAdd)) *
-        Additive.toMul (rationalCircleToCircle (d a.toAdd))
+    change Additive.toMul (AddCircle.rationalToCircle (c a.toAdd + d a.toAdd)) =
+      Additive.toMul (AddCircle.rationalToCircle (c a.toAdd)) *
+        Additive.toMul (AddCircle.rationalToCircle (d a.toAdd))
     rw [map_add]
     rfl
 
@@ -214,7 +167,7 @@ theorem characterToPontryaginHom_bijective (hA : IsAddTorsion A) :
   · intro c d hcd
     apply CharacterModule.ext
     intro a
-    apply rationalCircleToCircle_injective
+    apply AddCircle.rationalToCircle_injective
     apply Additive.toMul.injective
     have h := congrArg Additive.toMul hcd
     exact congrArg (fun χ : PontryaginDual (Multiplicative A) ↦ χ (Multiplicative.ofAdd a)) h
@@ -223,27 +176,27 @@ theorem characterToPontryaginHom_bijective (hA : IsAddTorsion A) :
       isOfFinOrder_iff_pow_eq_one.mpr
         ⟨addOrderOf a, (hA a).addOrderOf_pos,
           character_pow_addOrderOf A (Additive.toMul χ) (Multiplicative.ofAdd a)⟩
-    choose q hq using fun a ↦ exists_rationalCircle_preimage_of_isOfFinOrder (hfin a)
+    choose q hq using fun a ↦ Circle.exists_rational_preimage_of_isOfFinOrder (hfin a)
     let c : CharacterModule A :=
       { toFun := q
         map_zero' := by
-          apply rationalCircleToCircle_injective
+          apply AddCircle.rationalToCircle_injective
           apply Additive.toMul.injective
           rw [hq]
           simp
         map_add' := by
           intro a b
-          apply rationalCircleToCircle_injective
+          apply AddCircle.rationalToCircle_injective
           apply Additive.toMul.injective
           calc
-            Additive.toMul (rationalCircleToCircle (q (a + b))) =
+            Additive.toMul (AddCircle.rationalToCircle (q (a + b))) =
                 Additive.toMul χ (Multiplicative.ofAdd (a + b)) := hq (a + b)
             _ = Additive.toMul χ (Multiplicative.ofAdd a * Multiplicative.ofAdd b) := rfl
             _ = Additive.toMul χ (Multiplicative.ofAdd a) *
                 Additive.toMul χ (Multiplicative.ofAdd b) := map_mul _ _ _
-            _ = Additive.toMul (rationalCircleToCircle (q a)) *
-                Additive.toMul (rationalCircleToCircle (q b)) := by rw [hq, hq]
-            _ = Additive.toMul (rationalCircleToCircle (q a + q b)) := by
+            _ = Additive.toMul (AddCircle.rationalToCircle (q a)) *
+                Additive.toMul (AddCircle.rationalToCircle (q b)) := by rw [hq, hq]
+            _ = Additive.toMul (AddCircle.rationalToCircle (q a + q b)) := by
               rw [map_add]
               rfl }
     refine ⟨c, ?_⟩
@@ -316,7 +269,7 @@ theorem pontryaginRestriction_surjective (hA : IsAddTorsion A) (B : AddSubgroup 
   have hcB : characterToPontryagin B cB = χ := by
     exact congrArg Additive.toMul
       ((characterEquivPontryagin B hB).apply_symm_apply (Additive.ofMul χ))
-  change Additive.toMul (rationalCircleToCircle (c b.1)) = χ b
+  change Additive.toMul (AddCircle.rationalToCircle (c b.1)) = χ b
   rw [hcb]
   exact congrArg (fun ψ : PontryaginDual (Multiplicative B) ↦ ψ b) hcB
 
