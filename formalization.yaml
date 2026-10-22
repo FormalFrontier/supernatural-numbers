@@ -44,23 +44,20 @@ automation:
       framework: "Codex CLI (Formal Frontier Hive), Lean 4 and mathlib"
       tool_setup: >-
         AI agents using Codex CLI, Lean 4 and mathlib developed the mathematical
-        library, checked clients, metadata, bottom/simplification repair and
-        native doc-gen4 Markdown adapter. Beacon assembled the original modules,
-        notices and corrections; Folio contributed headline exposition. The
-        matching mathlib cache precedes a warning-fatal default build, and
-        release acceptance separately requires a complete transitive
-        standard-axiom audit and independent review. Exact model versions and
-        total costs were not recorded here.
+        library, checked clients, metadata, bottom/simplification work and the
+        doc-gen4 Markdown adapter. Beacon assembled the original modules,
+        notices and corrections; Folio contributed headline exposition.
+        Exact model versions and total costs were not recorded here.
   notes: >-
     Formal Frontier Agents is the collective formalization credit. Beacon
     is an AI-agent contributor, not a separately identified human author.
-    Beacon's original modules, other AI-agent client/metadata/bottom and native
+    Beacon's original modules, other AI-agent client/metadata/bottom and
     documentation contributions, Folio's headline exposition and the adapter's
     Root Stability/Anchor Ideal recipe lineage are credited in README.md and
-    docs/README.md. Unsupported project-generated ownership assertions were
-    removed without inventing a copyright holder; Apache notices, collective
-    credit and genuine third-party attribution remain. The generated API includes
-    native displayed signatures and project docstrings, not external book text.
+    docs/README.md. Apache notices, collective credit and genuine third-party
+    attribution are preserved; the collective author credit does not identify
+    a copyright holder. The generated API includes displayed Lean signatures
+    and project docstrings, not external book text.
 
 status:
   scope: >-
@@ -72,10 +69,8 @@ status:
 review:
   status: "self-assessed"
   notes: >-
-    Earlier mathematical and documentation content underwent independent
-    review and initial private publication. This self-report does not transfer
-    that verdict to later candidates: each successor requires its own applicable
-    warning-fatal build and complete private/generated transitive standard-axiom
-    evidence, independent review, rights assessment and verified publication.
-    Schema validation and this metadata do not certify the current revision or
-    independently establish its release status.
+    Compilation checks, including warning-fatal builds, are distinct from
+    complete transitive standard-axiom verification, including private and
+    generated declarations. Neither schema validation nor this self-assessment
+    constitutes independent mathematical review, rights assessment or
+    certification of a particular revision or its publication status.

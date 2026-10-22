@@ -267,7 +267,7 @@ def render(records, revision, sources, raw_records, expected_native_hashes=NATIV
              "and an undocumented anonymous instance) and 16 publicly named checked-use",
              "client entries (including a definition). Both root modules reexport their leaves",
              "and define no own native entries. This is not the complete transitive",
-             "private/generated standard-axiom audit required for release.", "",
+             "private/generated standard-axiom audit.", "",
              "Signatures retain every *displayed* implicit binder, class and universe label.",
              "Only HTML markup and formatting whitespace are normalized. An instance or",
              "definition signature does not certify its body. Native docstrings are labeled",

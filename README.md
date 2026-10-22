@@ -69,6 +69,25 @@ See the [API reference](docs/API.md) and
 [checked finite and infinite examples](SupernaturalNumbersTests/ReleaseClients.lean),
 as well as [rational-circle clients](SupernaturalNumbersTests/RationalCircle.lean).
 
+## Using the library
+
+Add this dependency to your project's `lakefile.toml`:
+
+```toml
+[[require]]
+name = "supernatural-numbers"
+git = "https://github.com/FormalFrontier/supernatural-numbers.git"
+rev = "main"
+```
+
+GitHub `main` contains reviewed releases, not the internal development branch.
+Lake resolves a release when you first add or update the dependency, and
+`lake-manifest.json` keeps that commit until you update again. For a fixed
+version, replace `main` with the full Git commit of the release you want from
+its GitHub history; Lake's `0.1.0` package version is not a release identifier.
+Use the matching Lean toolchain, and keep all libraries used together on a
+common Mathlib revision (the current pins are listed below).
+
 ## Modules and first use
 
 `import SupernaturalNumbers` publicly reexports all five subject modules:
@@ -155,41 +174,18 @@ natural families, including the complete-lattice bottom projection, alongside
 explicit use of the retained named arithmetic lemmas. The rational-circle
 clients also exercise the canonical imports, deprecated aliases and finite
 character cardinality.
-For acceptance, the warning-fatal default build is accompanied by a complete
-transitive standard-axiom audit, including private and generated declarations,
-and independent review. The allowed axioms are `propext`, `Classical.choice`
-and `Quot.sound`; the API inventory and build do not replace that audit.
-An additional stored-proof replay or repeated client builds are not mandatory
-gates. Applicable unchanged-input CI build/audit evidence can be reused.
+Verification pairs the warning-fatal default build with a complete transitive
+standard-axiom audit, including private and generated declarations. The allowed
+axioms are `propext`, `Classical.choice` and `Quot.sound`; the API inventory and
+build alone do not establish that audit.
 
-### Measured build baseline
-
-On September 25, 2026, a Linux x86_64 check of the unchanged eight Lean modules
-with Mathlib `e37d88a26f3791ed5a93daa1f949af1021b8d103` and Lean
-`v4.34.0-rc2` took **39.9 seconds** for eight sequential module builds
-starting without project build outputs but **with the matching dependency cache**.
-The largest sampled process-group resident memory was **2.41 GiB**. A subsequent
-warm default build took **3.95 seconds**, with **0.84 GiB** sampled resident memory.
-The commands used `LEAN_NUM_THREADS=1` and Lake `-Kjobs=2`; the runner imposed
-a 64 GiB virtual-address limit per process and an 18 GiB process-group resident-
-memory watchdog. These imposed limits are not measured memory requirements, and
-sampled process-group peaks are not whole-container peak measurements.
-
-This is a one-environment baseline, not a guarantee or a performance-improvement
-claim. Cache download, dependency storage, native documentation generation and
-the separate proof audit are excluded. Budget additional time and disk space for
-those steps; a full mathlib source rebuild was not measured. On comparable
-cache-ready hardware, expect project-only builds on the order of tens of seconds;
-resource needs and timings can vary with the host and parallelism.
-
-The library includes the generated native API, checked clients, explanatory
-documentation and formalization metadata alongside its mathematical modules.
-The initial private publication and its review have separate exact-revision
-records; this README and Lake's `0.1.0` version neither identify an accepted
-successor nor certify a particular published GitHub snapshot. Each successor
-needs its own revision-specific independent review, applicable build/axiom
-evidence, rights/provenance assessment and verified release/publication record.
-No complete-source formalization or public-visibility decision is claimed.
+For scale, one historical cache-ready Linux x86_64 check under Lean `v4.34.0-rc2`
+and Mathlib `e37d88a26f3791ed5a93daa1f949af1021b8d103` took **39.9 seconds** for
+eight sequential project-module builds without project outputs, using
+`LEAN_NUM_THREADS=1` and Lake `-Kjobs=2`. This excluded cache download, dependency
+storage, native documentation generation and the separate proof audit. It is
+not a measurement of the current revision or a portable performance guarantee;
+a full Mathlib source rebuild was not measured.
 
 Original repository code is licensed under Apache-2.0; see `LICENSE` and
 the retained SPDX headers. Mathlib and other dependencies keep their own
@@ -198,21 +194,15 @@ in `formalization.yaml`; detailed source-level coverage is recorded separately.
 
 ## Contribution provenance
 
-Beacon contributed the initial mathematical implementation and module prose,
-then assembled the notices and corrections. Other AI-agent contributions added
-the checked clients, metadata, complete-lattice bottom/simplification repair and
-native API documentation and adapter. Folio contributed the distinct headline
-exposition used in this reader-facing summary. The adapter's
+Beacon contributed the initial mathematical implementation and module prose
+and assembled the notices. Other AI-agent contributions added
+the checked clients, metadata, complete-lattice bottom and simplification
+interfaces, and native API documentation and adapter. Folio contributed the
+distinct headline exposition used in this reader-facing summary. The adapter's
 [recipe lineage](docs/README.md) credits its Root Stability and Anchor Ideal
-precursors without transferring their review status. These are contributions
+precursors. These are contributions
 by AI agents under the collective “Formal Frontier Agents” author credit, not
 claims of a separately identified human author or copyright holder.
-
-The five initial project-generated ownership assertions naming "Formal Frontier
-Authors" had no established ownership basis and have been removed under the
-project's reviewed correction procedure. Apache-2.0 notices, collective author credit and actual contributor
-provenance are retained; no replacement owner is asserted. This correction does
-not remove any identified third-party notice or clear unrelated rights concerns.
 
 The mathematical background includes
 Neukirch, Schmidt and Wingberg, *Cohomology of Number Fields*, corrected second
@@ -220,8 +210,6 @@ edition v2.3 (May 2020), Definitions (1.1.5)--(1.1.6) and the consequences follo
 (1.1.6). This library uses mathematical ideas and mathlib interfaces; it does not
 redistribute that book, its figures or source excerpts. Dependency source and
 native HTML/website assets are not bundled; native signatures and this project's
-docstrings are included in the Markdown API. Release review must separately check
-the complete artifact's rights/provenance, including this documentation and
-proposed published history; original-project standing authorization is not a
-blanket third-party rights waiver, and Apache metadata
-and a build alone do not establish that clearance.
+docstrings are included in the Markdown API. The license for original
+repository code does not extend to third-party material. Apache metadata and a
+successful build do not establish third-party redistribution rights.

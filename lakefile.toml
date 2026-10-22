@@ -1,5 +1,6 @@
 name = "supernatural-numbers"
 version = "0.1.0"
+lintDriver = "batteries/runLinter"
 defaultTargets = ["SupernaturalNumbers", "SupernaturalNumbersTests"]
 
 [leanOptions]
